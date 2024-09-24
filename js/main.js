@@ -64,44 +64,46 @@
 
     // Eu adicionei:
 
-    $(document).ready(function() {
-    
-        // Função para validar e-mail
-        function isValidEmail(email) {
-            var re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Regex para validação de e-mail
-            return re.test(email);
-        }
-        // Captura o clique no botão de inscrição 'JS-Email'
-        $('#submitBtn').on('click', function() {
-            var email = $('#email').val(); // Obtém o valor do campo de e-mail
-            $('#messageContainer').empty(); // Limpa mensagens anteriores
-    
-            if (email && isValidEmail(email)) {
-                // Envia o e-mail para a planilha do Google Sheets
-                fetch('https://script.google.com/macros/s/AKfycbxDD15XKnT3jDzIrEfSQMILylydfGlIbAa7kBiwQMGypZiLULV4qUudiJZ6eXJjXtsAlw/exec', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({ email: email }), // Envia o e-mail em formato JSON
-                })
-                .then(response => response.text()) // Obtém a resposta como texto
-                .then(data => {
-                    $('#messageContainer').append('<div class="feedback-message">E-mail enviado com sucesso!</div>'); // Mensagem de sucesso
-                    console.log(data); // Exibe a resposta no console
-                    $('#email').val(''); // Limpa o campo de e-mail após o envio
-                })
-                .catch(error => {
-                    console.error('Erro:', error); // Exibe o erro no console
-                    $('#messageContainer').append('<div class="error-message">Ocorreu um erro ao enviar o e-mail.</div>'); // Mensagem de erro
-                    alert('Ocorreu um erro ao enviar o e-mail.'); // Mensagem de erro
-                });
-            } else {
-                $('#messageContainer').append('<div class="error-message">Por favor, insira um e-mail válido.</div>'); // Mensagem se o e-mail não for válido
-                alert('Por favor, insira um e-mail válido.'); // Validação simples
-            }
-        });
-    });
-
 })(jQuery); // Passa o objeto jQuery como argumento para garantir que o $ funcione corretamente, mesmo que o jQuery em si esteja em modo de compatibilidade.
 
+// Obter email registrado
+const handleSubmit = (event) => {
+
+    event.preventDefault();
+    // Função para validar e-mail
+    // Função para validar e-mail
+    function isValidEmail(email) {
+        var re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Regex para validação de e-mail
+        return re.test(email);
+    }
+    const email = document.querySelector('#email').value; // Obtém o valor do campo de e-mail
+    $('#messageContainer').empty(); // Limpa mensagens anteriores
+    console.log(email);
+    if (email && isValidEmail(email)) {
+        // Envia o e-mail para a planilha do Google Sheets
+        fetch('https://api.sheetmonkey.io/form/4eN3Savr3QYbtiio7gCdpF', {
+            method: 'post',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ email: email }), // Envia o e-mail em formato JSON
+        })
+        .then(response => response.text()) // Obtém a resposta como texto
+        .then(data => {
+            $('#messageContainer').append('<div class="feedback-message">E-mail enviado com sucesso!</div>'); // Mensagem de sucesso
+            console.log(data); // Exibe a resposta no console
+            $('#email').val(''); // Limpa o campo de e-mail após o envio
+        })
+        .catch(error => {
+            console.error('Erro:', error); // Exibe o erro no console
+            $('#messageContainer').append('<div class="error-message">Ocorreu um erro ao enviar o e-mail.</div>'); // Mensagem de erro
+            alert('Ocorreu um erro ao enviar o e-mail.'); // Mensagem de erro
+        });
+    } else {
+        $('#messageContainer').append('<div class="error-message">Por favor, insira um e-mail válido.</div>'); // Mensagem se o e-mail não for válido
+        alert('Por favor, insira um e-mail válido.'); // Validação simples
+    }
+};
+
+document.querySelector('#submitBtn').addEventListener('click', handleSubmit);
