@@ -71,7 +71,6 @@ const handleSubmit = (event) => {
 
     event.preventDefault();
     // Função para validar e-mail
-    // Função para validar e-mail
     function isValidEmail(email) {
         var re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Regex para validação de e-mail
         return re.test(email);
@@ -87,7 +86,7 @@ const handleSubmit = (event) => {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ email: email }), // Envia o e-mail em formato JSON
+            body: JSON.stringify({ email: email}), // Envia o e-mail em formato JSON
         })
         .then(response => response.text()) // Obtém a resposta como texto
         .then(data => {
@@ -105,5 +104,4 @@ const handleSubmit = (event) => {
         alert('Por favor, insira um e-mail válido.'); // Validação simples
     }
 };
-
 document.querySelector('#submitBtn').addEventListener('click', handleSubmit);
