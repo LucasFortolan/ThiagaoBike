@@ -1,9 +1,9 @@
 /********** Template CSS **********/
 :root {
-    --primary: #EB1616;
-    --secondary: #191C24;
-    --light: #6C7293;
-    --dark: #000000;
+    --primary: #FFEB00;
+    --secondary: #4379F2;
+    --light: #6EACDA;
+    --dark: #001F3F;
 }
 
 .back-to-top {
@@ -136,7 +136,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(0, 0, 0, .85);
+    background: rgba(0, 31, 63, .85);
     z-index: 1;
 }
 
@@ -166,7 +166,7 @@
 }
 
 .page-header {
-    background: linear-gradient(rgba(0, 0, 0, .85), rgba(0, 0, 0, .85)), url(../img/carousel-1.jpg) center center no-repeat;
+    background: linear-gradient(rgba(0, 31, 63, .85), rgba(0, 31, 63, .85)), url(../img/carousel-1.jpg) center center no-repeat;
     background-size: cover;
 }
 
@@ -203,7 +203,7 @@
     height: 100%;
     top: 0;
     left: 0;
-    background: rgba(0, 0, 0, .85);
+    background: rgba(67, 121, 242, .85);
     transition: .5s;
 }
 
